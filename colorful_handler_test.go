@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"github.com/fatih/color"
 	"log/slog"
-	"os"
 	"testing"
 )
 
@@ -68,7 +67,7 @@ func Test_coloring(t *testing.T) {
 					time:      color.New(color.BgRed),
 					separator: ' '},
 				nil))
-			logNoColor := slog.New(slog.NewTextHandler(os.Stdout, nil))
+			logNoColor := slog.New(slog.NewTextHandler(mcw, nil))
 
 			switch test.handler {
 			case withColor:

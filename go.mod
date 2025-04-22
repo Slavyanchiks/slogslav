@@ -1,4 +1,4 @@
-module slogslav
+module github.com/Slavyanchiks/slogslav
 
 go 1.23
 
