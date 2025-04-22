@@ -25,14 +25,14 @@ func (fh *FilterHandler) Handle(ctx context.Context, r slog.Record) error {
 }
 
 func (fh *FilterHandler) WithAttrs(attrs []slog.Attr) slog.Handler {
-	return NewFilterHandler(fh.level, fh.handler.WithAttrs(attrs))
+	return newFilterHandler(fh.level, fh.handler.WithAttrs(attrs))
 }
 
 func (fh *FilterHandler) WithGroup(name string) slog.Handler {
-	return NewFilterHandler(fh.level, fh.handler.WithGroup(name))
+	return newFilterHandler(fh.level, fh.handler.WithGroup(name))
 }
 
-func NewFilterHandler(level slog.Level, handler slog.Handler) *FilterHandler {
+func newFilterHandler(level slog.Level, handler slog.Handler) *FilterHandler {
 	if fh, ok := handler.(*FilterHandler); ok {
 		handler = fh.Handler()
 	}
@@ -41,10 +41,10 @@ func NewFilterHandler(level slog.Level, handler slog.Handler) *FilterHandler {
 
 func NewFilterTextHandler(w io.Writer, opts *slog.HandlerOptions, level slog.Level) *FilterHandler {
 	th := slog.NewTextHandler(w, opts)
-	return NewFilterHandler(level, th)
+	return newFilterHandler(level, th)
 }
 
 func NewFilterJSONHandler(w io.Writer, opts *slog.HandlerOptions, level slog.Level) *FilterHandler {
 	th := slog.NewJSONHandler(w, opts)
-	return NewFilterHandler(level, th)
+	return newFilterHandler(level, th)
 }
